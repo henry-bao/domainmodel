@@ -37,6 +37,10 @@ public struct Money {
         return Money(amount: sum, currency: moneyToAdd.currency)
     }
     
+    func subtract(_ moneyToSubtract: Money) -> Money {
+        let difference = self.convert(moneyToSubtract.currency).amount - moneyToSubtract.amount
+        return Money(amount: difference, currency: moneyToSubtract.currency)
+    }
 }
 
 ////////////////////////////////////
@@ -115,7 +119,22 @@ public class Person {
     }
     
     func toString() -> String {
-        return String("[Person: firstName:\(self.firstName) lastName:\(self.lastName) age:\(self.age) job:\(self.job?.title) spouse:\(self.spouse?.firstName)]")
+        var jobString = ""
+        if let job = self.job {
+            jobString = "\(job.title), \(job.type)"
+        } else {
+            jobString = "nil"
+        }
+        
+        var spouseString = ""
+        if let spouse = self.spouse {
+            spouseString = "\(spouse.firstName) \(spouse.lastName)"
+        } else {
+            spouseString = "nil"
+        }
+        
+        return "[Person: firstName:\(self.firstName) lastName:\(self.lastName) age:\(self.age) job:\(jobString) spouse:\(spouseString)]"
+        
     }
 }
 
