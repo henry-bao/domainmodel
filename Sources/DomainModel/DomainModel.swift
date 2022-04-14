@@ -25,6 +25,10 @@ public struct Money {
     }
     
     func convert(_ currencyToConvert: String) -> Money {
+        
+        guard someCurrencyToUsdDict[currencyToConvert] != nil else {
+            return Money(amount: -1, currency: "Cannot convert to this currency")
+        }
         if currencyToConvert == "USD" {
             return Money(amount: Int(Double(self.amount) / someCurrencyToUsdDict[self.currency]!), currency: currencyToConvert)
         } else {
@@ -134,7 +138,6 @@ public class Person {
         }
         
         return "[Person: firstName:\(self.firstName) lastName:\(self.lastName) age:\(self.age) job:\(jobString) spouse:\(spouseString)]"
-        
     }
 }
 

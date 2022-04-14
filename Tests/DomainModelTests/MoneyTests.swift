@@ -82,10 +82,9 @@ class MoneyTests: XCTestCase {
   }
 
     
-/* * * * * * * * * * * * *
- *  ADDED SUBTRACT TESTS *
- * * * * * * * * * * * * */
-
+/* * * * * * * *
+ * ADDED TESTS *
+ * * * * * * * */
     func testSubtractUSDtoUSD() {
         let total = twelveUSD.subtract(tenUSD)
         XCTAssert(total.amount == 2)
@@ -97,7 +96,12 @@ class MoneyTests: XCTestCase {
         XCTAssert(total.amount == 0)
         XCTAssert(total.currency == "CAN")
     }
-
+    
+    func testCovertIllegalCurrency() {
+        let pokeDollar = tenUSD.convert("PokeDollar")
+        XCTAssert(pokeDollar.amount == -1)
+        XCTAssert(pokeDollar.currency == "Cannot convert to this currency")
+    }
     
     static var allTests = [
         ("testCanICreateMoney", testCanICreateMoney),
@@ -116,9 +120,8 @@ class MoneyTests: XCTestCase {
         ("testAddUSDtoGBP", testAddUSDtoGBP),
         
         ("testSubtractUSDtoCAN", testSubtractUSDtoCAN),
-        ("testSubtractUSDtoUSD", testSubtractUSDtoUSD)
+        ("testSubtractUSDtoUSD", testSubtractUSDtoUSD),
+        ("testCovertIllegalCurrency", testCovertIllegalCurrency)
     ]
-    
-
 }
 
