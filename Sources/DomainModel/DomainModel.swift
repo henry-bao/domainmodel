@@ -25,14 +25,15 @@ public struct Money {
     }
     
     func convert(_ currencyToConvert: String) -> Money {
-        
         guard someCurrencyToUsdDict[currencyToConvert] != nil else {
             return Money(amount: -1, currency: "Cannot convert to this currency")
         }
+        
+        let amountInUsd = Double(self.amount) / someCurrencyToUsdDict[self.currency]!
         if currencyToConvert == "USD" {
-            return Money(amount: Int(Double(self.amount) / someCurrencyToUsdDict[self.currency]!), currency: currencyToConvert)
+            return Money(amount: Int(amountInUsd), currency: currencyToConvert)
         } else {
-            return Money(amount: Int((Double(self.amount) * someCurrencyToUsdDict[currencyToConvert]!)), currency: currencyToConvert)
+            return Money(amount: Int(amountInUsd * someCurrencyToUsdDict[currencyToConvert]!), currency: currencyToConvert)
         }
     }
     
@@ -129,7 +130,7 @@ public class Person {
         } else {
             jobString = "nil"
         }
-        
+
         var spouseString = ""
         if let spouse = self.spouse {
             spouseString = "\(spouse.firstName) \(spouse.lastName)"

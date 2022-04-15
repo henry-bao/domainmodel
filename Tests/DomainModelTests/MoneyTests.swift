@@ -103,6 +103,13 @@ class MoneyTests: XCTestCase {
         XCTAssert(pokeDollar.currency == "Cannot convert to this currency")
     }
     
+    func testCANtoEUR() {
+        let eur = fifteenCAN.convert("EUR")
+        print(eur.amount)
+        XCTAssert(eur.amount == 18)
+        XCTAssert(eur.currency == "EUR")
+    }
+    
     static var allTests = [
         ("testCanICreateMoney", testCanICreateMoney),
 
@@ -121,7 +128,8 @@ class MoneyTests: XCTestCase {
         
         ("testSubtractUSDtoCAN", testSubtractUSDtoCAN),
         ("testSubtractUSDtoUSD", testSubtractUSDtoUSD),
-        ("testCovertIllegalCurrency", testCovertIllegalCurrency)
+        ("testCovertIllegalCurrency", testCovertIllegalCurrency),
+        ("testCANtoEUR", testCANtoEUR)
     ]
 }
 
